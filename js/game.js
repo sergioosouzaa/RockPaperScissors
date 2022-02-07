@@ -1,4 +1,4 @@
-
+//random choosses rock paper or scissors, return a string
 computerPlay = function (){
     let computerChoice;
     let randomNum = Math.round(Math.random()*2);
@@ -12,6 +12,7 @@ computerPlay = function (){
     return computerChoice;
 };
 
+//check if the player inputed a valid word
 function checkValidSelection (playerSelection) {
     let checkResult;
     if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors"){
@@ -22,6 +23,7 @@ function checkValidSelection (playerSelection) {
     return checkResult;
 }
 
+//check if is a tie, win or lose. print the result with console.log, return a number correponding with the result
 function compareChoices (playerSelection, computerSelection) {
     let compareResult;
     let result;
@@ -35,22 +37,24 @@ function compareChoices (playerSelection, computerSelection) {
         compareResult = `You lost! ${computerSelection} beats ${playerSelection}!`
         result = 2;
     }
-
     console.log(compareResult);
     return result;
 }
 
+//run a round of tthe game
 function playRound(playerSelection, computerSelection) {
     let roundResult;
     playerSelection = playerSelection.toLowerCase();
     if(checkValidSelection(playerSelection)) {
         roundResult = compareChoices (playerSelection, computerSelection);
     } else {
-        roundResult = "Invalid entry, please inser a valid option";
+        roundResult = -1;
+        console.log("Invalid entry, please inser a valid option");
     }
     return roundResult;
 }
 
+// run 5 rounds of the game, record the result. If the user input is invalid run the game again
 function game () {
     let playerSelection;
     let wins = 0;
@@ -67,12 +71,13 @@ function game () {
             tie++;
         } else if (matchResult == 1) {
             wins++;
-        } else {
+        } else if (matchResult == -1) {
+            i--;
+        }else {
             looses++;
         }
     }
     console.log(`${wins} wins. ${tie} ties. ${looses} loses.`)
-
 }
 
 game();
